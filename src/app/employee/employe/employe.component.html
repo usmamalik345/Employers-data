@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Employee Managment</h2>
+    </div>
+
+    <div class="col-ml-auto text-right">
+      <!-- <button class="btn btn-outline-success" (click)="onAddEmployee()"> -->
+        Add Employee
+      <!-- </button> -->
+    </div>
+  </div>
+</div>
+
+<hr />
+
+<div class="row" >
+  <div class="col-sm-6">
+    <div class="card" *ngFor="let data of  Emply">
+      <div class="card-body">
+        <h5 class="card-title">{{data.name}}</h5>
+        <h6 class="card-text">{{data.postion}}</h6>
+        <span class="badge bg-success"> Design</span>
+        <hr>
+        <button class="btn btn-sm btn-outline-primary" routerLink="/editem/{{data._id}}"> Edit </button>
+        <button class="btn btn-sm btn-outline-danger">  delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <form [formGroup]="empForm" (ngSubmit)="onEmpSubmit()"> 
+    <div class="modal-body">
+        <div class="form-group">
+            <label>Enter Name</label>
+            <input type="text" class="form-control" formControlName="name">
+            <small *ngIf="!empForm.get('name').valid && empForm.get('name').touched" class="form-text text-danger">Please Enter Name.</small>
+        </div>
+        
+        <div class="form-group">
+            <label>Enter position</label>
+            <input type="text" class="form-control" formControlName="position">
+            <small *ngIf="!empForm.get('position').valid && empForm.get('position').touched" class="form-text text-danger">Please Enter position.</small>
+        </div>
+        
+        <div class="form-group">
+            <label>Enter Office</label>
+            <input type="text" class="form-control" formControlName="office">
+            <small *ngIf="!empForm.get('office').valid && empForm.get('office').touched" class="form-text text-danger">Please Enter office.</small>
+        </div>
+        
+        <div class="form-group">
+            <label>Enter Salary</label>
+            <input type="text" class="form-control" formControlName="salary">
+            <small *ngIf="!empForm.get('salary').valid && empForm.get('salary').touched" class="form-text text-danger">Please Enter salary.</small>
+        </div>
+    </div>
+    <div class="modal-footer"> -->
