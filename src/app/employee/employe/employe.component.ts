@@ -1,52 +1,49 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-employe',
   templateUrl: './employe.component.html',
-  styleUrls: ['./employe.component.css']
+  styleUrls: ['./employe.component.css'],
 })
 export class EmployeComponent {
-  public Emply : any
+  public Emply: any;
   empForm: FormGroup | undefined;
-  showModal: boolean = false
-  editMode: boolean = false
+  showModal: boolean = false;
+  editMode: boolean = false;
+  detlteproduct: any;
 
-
-  constructor(private fb: FormBuilder, public http: HttpClient ) {
-   
-  }
+  constructor(private fb: FormBuilder, public http: HttpClient) {}
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    // this.empForm = this.fb.group({
-    //   id: [''],
-    //   name: ["Hamza Malik", Validators.required],
-    //   position: ["juniour Angular developer", Validators.required],
-    //   depart: [ 'Development']
-
-    // })
-    this.getEmply()
+    this.getEmply();
   }
 
-  // onEmpSubmot() {
-  //   if (this.empForm?.valid) {
-  //     console.log(this.empForm.value)
-  //     if (this.editMode) {
-        
-  //     } else {
-        
-  //     }
-  //     }
-  //   }
   getEmply() {
-    this.http.get<any>('http://localhost:3000/employees').subscribe((response) => {
-      this.Emply = response
-
-      console.log(response , " Hello Response")
-    } )
+    this.http
+      .get<any>('http://localhost:3000/employees')
+      .subscribe((response) => {
+        this.Emply = response;
+        console.log(this.Emply, ' Hello Response');
+      
+      });
   }
-  
+  deltebyId(id: number): Observable<any> {
+    return this.http
+      .delete<any>(`http://localhost:3000/employees/${id}`);
+  }
+  onDelte(id: any){
+    const index = this.Emply.findIndex((item: { id: any; }) => item.id === id);
+    if (index !== -1) {
+      this.Emply.splice(index, 1);
+    }
+
+    this.deltebyId(id).subscribe((res) => {
+      console.log(res, "show what we get from this ")
+      this.getEmply()
+    })
+
+  }
 }

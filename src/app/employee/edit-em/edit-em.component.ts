@@ -2,47 +2,62 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Route } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-edit-em',
   templateUrl: './edit-em.component.html',
-  styleUrls: ['./edit-em.component.css']
+  styleUrls: ['./edit-em.component.css'],
 })
 export class EditEmComponent {
- 
-   datawithId : any
+  datawithId: any;
 
-  form: FormGroup;
-  formBuilder: any;
-  data: any;
+  form: FormGroup | any;
 
-  constructor(private fb: FormBuilder , private router : ActivatedRoute , private http : HttpClient)  {
+  constructor(
+    private fb: FormBuilder,
+    private router: ActivatedRoute,
+    private http: HttpClient
+  ) {
     this.form = this.fb.group({
       name: ['', Validators.required],
       postion: ['', [Validators.required]],
+      depart: ['', [Validators.required]],
     });
   }
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    console.log(this.router.snapshot.params['id'])
+    console.log(this.router.snapshot.params['id']);
     this.getDatabyid(this.router.snapshot.params['id']).subscribe((data) => {
-      console.log(data, "Data is here ")
-      
-      this.data = data;
+      console.log(data, 'Check that the data is being correctly retrieved');
+
       this.form.patchValue({
         name: data.name,
         postion: data.postion,
-       
+        depart: data.depart,
       });
-    })
-   }
+      console.log(this.form.value, ' from value');
+    });
+  }
 
   onSubmit() {
+    console.log(this.form.value, 'asasdadas');
+  }
+  getDatabyid(id: number): Observable<any> {
+    return this.http.get<any>(`http://localhost:3000/employees/${id}`);
+  }
+  updatedData() {
     console.log(this.form.value);
+    this.Employerupdate(
+      this.router.snapshot.params['id'],
+      this.form.value
+    ).subscribe((newData) => {
+      return console.log(newData, 'new data');
+    });
   }
-  getDatabyid(id: string): Observable<any> {
-    const data = this.http.get<any>(`http://localhost:3000/employees/${id}`);
-    return of(data);
+
+  Employerupdate(id: any, data: any): Observable<any> {
+    return this.http.put<any>(`http://localhost:3000/employees/${id}`, data);
   }
+
+  
 }

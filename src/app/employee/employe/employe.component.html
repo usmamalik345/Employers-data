@@ -5,9 +5,9 @@
     </div>
 
     <div class="col-ml-auto text-right">
-      <!-- <button class="btn btn-outline-success" (click)="onAddEmployee()"> -->
+       <button class="btn btn-outline-success" routerLink="/addnew"> -->
         Add Employee
-      <!-- </button> -->
+      </button> 
     </div>
   </div>
 </div>
@@ -20,10 +20,10 @@
       <div class="card-body">
         <h5 class="card-title">{{data.name}}</h5>
         <h6 class="card-text">{{data.postion}}</h6>
-        <span class="badge bg-success"> Design</span>
+        <span class="badge bg-success"> {{data.depart}}</span>
         <hr>
         <button class="btn btn-sm btn-outline-primary" routerLink="/editem/{{data._id}}"> Edit </button>
-        <button class="btn btn-sm btn-outline-danger">  delete</button>
+        <button class="btn btn-sm btn-outline-danger" (click)="onDelte(data._id)">  delete</button>
       </div>
     </div>
   </div>

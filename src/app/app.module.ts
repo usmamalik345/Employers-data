@@ -7,11 +7,13 @@ import { EmployeComponent } from './employee/employe/employe.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { EditEmComponent } from './employee/edit-em/edit-em.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AddNewEmpComponent } from './employee/add-new-emp/add-new-emp.component';
 @NgModule({
   declarations: [
     AppComponent,
     EmployeComponent,
     EditEmComponent,
+    AddNewEmpComponent,
     
   ],
   imports: [
