@@ -19,6 +19,7 @@ export class EmployeComponent {
 
   ngOnInit(): void {
     this.getEmply();
+    
   }
 
   getEmply() {
@@ -46,4 +47,19 @@ export class EmployeComponent {
     })
 
   }
+  summarizeLongDesc(): void {
+    const start = 0;
+    this.http.get(`http://localhost:3000/summarize/${start}`).subscribe({
+      next: response => {
+        console.log(response); // Success message from the server
+      },
+      error: error => {
+        console.error(error); // Error message from the server
+      },
+      complete: () => {
+        console.log('Request completed');
+      }
+    });
+  }
+  
 }
